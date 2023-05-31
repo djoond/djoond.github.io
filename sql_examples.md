@@ -40,4 +40,4 @@ Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this
 | 2022       | Mountain-200 Black, 42  | 1201528.0151       | $1,201,528          |
 | 2022       | Touring-1000 Yellow, 60 | 1142403.6693       | $1,142,404          |
    
-  [Result](https://github.com/djoond/djoond.github.io/blob/main/product_sales_rank_by_year.csv)
+  [Result](product_sales_rank_by_year.csv)
