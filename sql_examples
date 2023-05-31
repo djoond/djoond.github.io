@@ -1,0 +1,18 @@
+  /*
+Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this ranking done for each year"
+*/
+  
+  SELECT [Order Year],
+         [Product Name],
+	       [Total Sales Amount] = FORMAT([Total Sales Amount], '$#,#')
+    FROM (SELECT [Order Year] = YEAR(rs.OrderDate),
+				         p.[Product Name],
+				         [Total Sales Amount] = SUM(rs.SalesAmount),
+				         [Rank] = DENSE_RANK() OVER (PARTITION BY YEAR(rs.OrderDate) ORDER BY SUM(rs.SalesAmount) DESC)
+			      FROM FactResellerSales AS rs
+	               INNER JOIN Product AS p
+				         ON rs.ProductKey = p.ProductKey
+		       GROUP BY YEAR(rs.OrderDate), p.[Product Name]
+		     ) AS ranked_products
+   WHERE Rank <= 5
+   ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
