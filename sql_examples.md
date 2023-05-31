@@ -1,7 +1,6 @@
 
 Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this ranking done for each year"
 
- ```
   SELECT [Order Year],
          [Product Name],
 	 [Total Sales Amount] = FORMAT([Total Sales Amount], '$#,#')
@@ -16,7 +15,6 @@ Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this
 	 ) AS ranked_products
    WHERE Rank <= 5
    ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
-   ```
    
    | Order Year | Product Name            | Total Sales Amount | Total Sales Amount1 |
 |------------|-------------------------|--------------------|---------------------|
