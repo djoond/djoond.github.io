@@ -1,7 +1,7 @@
-   /*
+
 Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this ranking done for each year"
-*/
- ```
+
+ ```sql
   SELECT [Order Year],
          [Product Name],
 	 [Total Sales Amount] = FORMAT([Total Sales Amount], '$#,#')
