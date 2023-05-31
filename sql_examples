@@ -16,3 +16,5 @@ Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this
 		     ) AS ranked_products
    WHERE Rank <= 5
    ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
+   
+  [Resul](https://github.com/djoond/djoond.github.io/blob/main/product_sales_rank_by_year.csv)
