@@ -18,7 +18,7 @@ Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this
    ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
 ```
    
-| Order Year | Product Name            | Total Sales Amount1 |
+| Order Year | Product Name            | Total Sales Amount  |
 |------------|-------------------------|--------------------:|
 | 2019       | Mountain-100 Black, 44  |             $46,575 |
 | 2019       | Mountain-100 Black, 38  |             $44,550 |
@@ -41,4 +41,3 @@ Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this
 | 2022       | Mountain-200 Black, 42  |          $1,201,528 |
 | 2022       | Touring-1000 Yellow, 60 |          $1,142,404 |
    
-  [Result](product_sales_rank_by_year.csv)
