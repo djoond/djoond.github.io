@@ -1,5 +1,5 @@
 
-Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this ranking done for each year"
+Sales Manager: "Please give me the top 5 products sold to our resellers ranked by sales amount. I'd like this ranking done for each year"
 
 ```
   SELECT [Order Year],
@@ -41,3 +41,4 @@ Sales Manager: "Please give me the top 5 products ranked by sales. I'd like this
 | 2022       | Mountain-200 Black, 42  |          $1,201,528 |
 | 2022       | Touring-1000 Yellow, 60 |          $1,142,404 |
    
+***
