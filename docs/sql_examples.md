@@ -1,6 +1,6 @@
 
 Sales Manager: "Please give me the top 5 products sold to our resellers ranked by sales amount. I'd like this ranking done for each year"
-
+<span style="font-size:20px"> 
 ```
   SELECT [Order Year],
          [Product Name],
@@ -17,6 +17,7 @@ Sales Manager: "Please give me the top 5 products sold to our resellers ranked b
    WHERE Rank <= 5
    ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
 ```
+		 </span>		 
   
 | Order Year | Product Name            | Total Sales Amount  |
 |------------|-------------------------|--------------------:|
