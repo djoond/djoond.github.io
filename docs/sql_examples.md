@@ -17,8 +17,8 @@ Sales Manager: "Please give me the top 5 products sold to our resellers ranked b
    WHERE Rank <= 5
    ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
 ```
-###    
-| Order Year | Product Name            | Total Sales Amount  |
+    
+### | Order Year | Product Name            | Total Sales Amount  |
 |------------|-------------------------|--------------------:|
 | 2019       | Mountain-100 Black, 44  |             $46,575 |
 | 2019       | Mountain-100 Black, 38  |             $44,550 |
