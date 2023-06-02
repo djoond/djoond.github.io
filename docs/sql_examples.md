@@ -17,7 +17,7 @@ Sales Manager: "Please give me the top 5 products sold to our resellers ranked b
    WHERE Rank <= 5
    ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
 ```
-<span style="font-size:24px">     
+  
 | Order Year | Product Name            | Total Sales Amount  |
 |------------|-------------------------|--------------------:|
 | 2019       | Mountain-100 Black, 44  |             $46,575 |
@@ -40,5 +40,5 @@ Sales Manager: "Please give me the top 5 products sold to our resellers ranked b
 | 2022       | Road-350-W Yellow, 48   |          $1,252,252 |
 | 2022       | Mountain-200 Black, 42  |          $1,201,528 |
 | 2022       | Touring-1000 Yellow, 60 |          $1,142,404 |
- </span>  
+
 ***
