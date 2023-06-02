@@ -10,7 +10,7 @@ Sales Manager: "Please give me the top 5 products sold to our resellers ranked b
 		 [Total Sales Amount] = SUM(rs.SalesAmount),
 		 [Rank] = DENSE_RANK() OVER (PARTITION BY YEAR(rs.OrderDate) ORDER BY SUM(rs.SalesAmount) DESC)
 	    FROM FactResellerSales AS rs
-	         INNER JOIN Product AS p
+	   INNER JOIN Product AS p
 	         ON rs.ProductKey = p.ProductKey
 	   GROUP BY YEAR(rs.OrderDate), p.[Product Name]
 	 ) AS ranked_products
