@@ -17,28 +17,17 @@ Sales Manager: "Please give me the top 5 products sold to our resellers ranked b
    WHERE Rank <= 5
    ORDER BY [Order Year] ASC, [Total Sales Amount] DESC;
 ```		 
-  
-| Order Year | Product Name            | Total Sales Amount  |
-|------------|-------------------------|--------------------:|
-| 2019       | Mountain-100 Black, 44  |             $46,575 |
-| 2019       | Mountain-100 Black, 38  |             $44,550 |
-| 2019       | Mountain-100 Black, 48  |             $40,500 |
-| 2019       | Road-450 Red, 52        |             $40,241 |
-| 2019       | Mountain-100 Black, 42  |             $32,400 |
-| 2020       | Mountain-100 Black, 38  |          $1,130,073 |
-| 2020       | Mountain-100 Black, 44  |          $1,116,778 |
-| 2020       | Mountain-100 Silver, 38 |          $1,074,269 |
-| 2020       | Mountain-100 Black, 42  |          $1,070,448 |
-| 2020       | Mountain-100 Silver, 42 |          $1,033,495 |
-| 2021       | Mountain-200 Black, 38  |          $1,454,407 |
-| 2021       | Mountain-200 Black, 42  |          $1,344,786 |
-| 2021       | Mountain-200 Silver, 38 |          $1,163,512 |
-| 2021       | Mountain-200 Silver, 42 |          $1,147,546 |
-| 2021       | Mountain-200 Silver, 46 |          $1,143,702 |
-| 2022       | Mountain-200 Black, 38  |          $1,549,274 |
-| 2022       | Touring-1000 Blue, 60   |          $1,293,129 |
-| 2022       | Road-350-W Yellow, 48   |          $1,252,252 |
-| 2022       | Mountain-200 Black, 42  |          $1,201,528 |
-| 2022       | Touring-1000 Yellow, 60 |          $1,142,404 |
+| Order Year | Product Name            | Total Sales Amount |
+|------------|-------------------------|-------------------:|
+| 2021       | Mountain-200 Black, 38  |         $1,454,407 |
+| 2021       | Mountain-200 Black, 42  |         $1,344,786 |
+| 2021       | Mountain-200 Silver, 38 |         $1,163,512 |
+| 2021       | Mountain-200 Silver, 42 |         $1,147,546 |
+| 2021       | Mountain-200 Silver, 46 |         $1,143,702 |
+| 2022       | Mountain-200 Black, 38  |         $1,549,274 |
+| 2022       | Touring-1000 Blue, 60   |         $1,293,129 |
+| 2022       | Road-350-W Yellow, 48   |         $1,252,252 |
+| 2022       | Mountain-200 Black, 42  |         $1,201,528 |
+| 2022       | Touring-1000 Yellow, 60 |         $1,142,404 |
 
 ***
