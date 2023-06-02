@@ -1,7 +1,7 @@
 
 Sales Manager: "Please give me the top 5 products sold to our resellers ranked by sales amount. I'd like this ranking done for each year"
 
-```
+```SQL
   SELECT [Order Year],
          [Product Name],
 	 [Total Sales Amount] = FORMAT([Total Sales Amount], '$#,#')
