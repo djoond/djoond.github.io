@@ -32,9 +32,9 @@ I'd like this ranking done for both 2021 and 2022"
 | 2022       | Touring-1000 Yellow, 60 |         $1,142,404 |
 
 ***
-CFO: "What was our average profit per customer in 2022?
+CFO: "What was our average profit per reseller customer in 2022?
 Can we compare it to the previous 2 years? Show the years across the columns, please.
-Oh, and while you are at it, can you show average profit per order?"
+Oh, and while you are at it, can you show avg profit per order for resellers?"
 
 ```SQL
 WITH
