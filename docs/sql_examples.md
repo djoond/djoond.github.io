@@ -173,3 +173,31 @@ AS (SELECT [Order Month],
 | 2022-12-01  |                       141 |                            1057 |          994 |         2192 |                       6.43% |
 
 ***
+Sales Manager: "Please create a monthly count of newly acquired reseller customers for 2021-2022"
+
+```SQL
+WITH
+existing_customers
+AS (SELECT DISTINCT ResellerKey
+      FROM FactResellerSales
+     WHERE OrderDate < '2021-01-01'
+   ),
+/* customers considered acquired on the date of their first order */
+initial_order_dates
+AS (SELECT ResellerKey,
+           [Initial Order Date] = MIN(OrderDate)
+      FROM FactResellerSales
+     WHERE ResellerKey NOT IN (SELECT ResellerKey FROM existing_customers)
+     GROUP BY ResellerKey
+   )
+
+SELECT [Order Month] = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date),
+       [New Resellers] = COUNT(DISTINCT i.ResellerKey)
+  FROM FactResellerSales AS s
+       LEFT OUTER JOIN initial_order_dates AS i
+       ON DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0) =
+       DATEADD(MONTH, DATEDIFF(MONTH, 0, [Initial Order Date]),0)
+ WHERE s.OrderDate >= '2021-01-01'
+ GROUP BY DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0)
+ ORDER BY [Order Month] ASC
+ ```
