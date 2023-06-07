@@ -1,4 +1,6 @@
 
+~ All queries against the AdventureWorksDW2019 database ~
+
 Sales Manager: "Please give me the top 5 products sold to our resellers ranked by sales amount.
 I'd like this ranking done for both 2021 and 2022"
 
