@@ -35,7 +35,7 @@ I'd like this ranking done for both 2021 and 2022"
 
 CFO: "What was our average profit per reseller customer in 2022?
 Can we compare it to the previous 2 years? Show the years across the columns, please.
-Oh, and while you are at it, can you show avg profit per order for resellers?"
+Oh, and while you are at it, can you show average profit per order for resellers?"
 
 ```SQL
 WITH
@@ -201,3 +201,30 @@ SELECT [Order Month] = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS d
  GROUP BY DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0)
  ORDER BY [Order Month] ASC
  ```
+| Order Month | New Resellers |
+|-------------|--------------:|
+| 2021-01-01  |            79 |
+| 2021-02-01  |            71 |
+| 2021-03-01  |             3 |
+| 2021-04-01  |             7 |
+| 2021-05-01  |             8 |
+| 2021-06-01  |             0 |
+| 2021-07-01  |             3 |
+| 2021-08-01  |             1 |
+| 2021-09-01  |             1 |
+| 2021-10-01  |             1 |
+| 2021-11-01  |             2 |
+| 2021-12-01  |            35 |
+| 2022-01-01  |            72 |
+| 2022-02-01  |            88 |
+| 2022-03-01  |             4 |
+| 2022-04-01  |             1 |
+| 2022-05-01  |             2 |
+| 2022-06-01  |             0 |
+| 2022-07-01  |             1 |
+| 2022-08-01  |             1 |
+| 2022-09-01  |             0 |
+| 2022-10-01  |             0 |
+| 2022-11-01  |             3 |
+
+***
