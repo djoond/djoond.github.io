@@ -145,7 +145,8 @@ AS (SELECT [Order Month],
         [Non-bike Categories Only Orders] = nb.[Order Count],
         [Mixed Orders] = m.[Order Count],
 	[Total Orders] = b.[Order Count] + nb.[Order Count] + m.[Order Count],
-	[Percent of Bike-Only Orders] =  FORMAT(CAST(b.[Order Count] AS float) / (b.[Order Count] + nb.[Order Count] + m.[Order Count]), 'P')
+	[Percent of Bike-Only Orders] =  FORMAT(CAST(b.[Order Count] AS float) /
+	                                 (b.[Order Count] + nb.[Order Count] + m.[Order Count]), 'P')
    FROM FactInternetSales AS s
         LEFT OUTER JOIN bike_only AS b
 	ON DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0) = b.[Order Month]
@@ -156,3 +157,19 @@ AS (SELECT [Order Month],
   WHERE YEAR(s.OrderDate) = '2022'
   ORDER BY [Order Month] ASC;
   ```
+| Order Month | Bike Category Only Orders | Non-bike Categories Only Orders | Mixed Orders | Total Orders | Percent of Bike-Only Orders |
+|-------------|--------------------------:|--------------------------------:|-------------:|-------------:|----------------------------:|
+| 2022-01-01  |                        65 |                             135 |          432 |          632 |                      10.28% |
+| 2022-02-01  |                        53 |                             967 |          401 |         1421 |                       3.73% |
+| 2022-03-01  |                        83 |                            1082 |          525 |         1690 |                       4.91% |
+| 2022-04-01  |                        68 |                            1008 |          536 |         1612 |                       4.22% |
+| 2022-05-01  |                       100 |                            1043 |          649 |         1792 |                       5.58% |
+| 2022-06-01  |                       136 |                            1003 |          868 |         2007 |                       6.78% |
+| 2022-07-01  |                        99 |                            1078 |          698 |         1875 |                       5.28% |
+| 2022-08-01  |                        97 |                            1069 |          800 |         1966 |                       4.93% |
+| 2022-09-01  |                       103 |                            1014 |          767 |         1884 |                       5.47% |
+| 2022-10-01  |                       133 |                            1115 |          883 |         2131 |                       6.24% |
+| 2022-11-01  |                       127 |                            1012 |          948 |         2087 |                       6.09% |
+| 2022-12-01  |                       141 |                            1057 |          994 |         2192 |                       6.43% |
+
+***
