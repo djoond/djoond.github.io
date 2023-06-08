@@ -179,29 +179,48 @@ Sales Manager: "Please create a monthly count of newly acquired reseller custome
 
 ```SQL
 WITH
-existing_customers
+existing_resellers
 AS (SELECT DISTINCT ResellerKey
       FROM FactResellerSales
      WHERE OrderDate < '2021-01-01'
    ),
-/* customers considered acquired on the date of their first order */
+
+/* resellers considered acquired on the date of their first order */
 initial_order_dates
 AS (SELECT ResellerKey,
            [Initial Order Date] = MIN(OrderDate)
       FROM FactResellerSales
-     WHERE ResellerKey NOT IN (SELECT ResellerKey FROM existing_customers)
+     WHERE ResellerKey NOT IN (SELECT ResellerKey FROM existing_resellers)
      GROUP BY ResellerKey
+   ),
+
+new_resellers
+AS (SELECT [First Order Month] = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0,[Initial Order Date]),0) AS date),
+           [New Resellers] = COUNT(DISTINCT ResellerKey)
+      FROM initial_order_dates
+     GROUP BY DATEADD(MONTH, DATEDIFF(MONTH, 0,[Initial Order Date]),0)
+   ),
+   
+/* resellers considered active during a month if having at least one order during that month */
+active_resellers
+AS (SELECT [Active Order Month] = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date),
+           [Active Resellers] = COUNT(DISTINCT ResellerKey)
+      FROM FactResellerSales
+     WHERE OrderDate >= '2021-01-01'
+     GROUP BY DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) 
    )
 
-SELECT [Order Month] = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date),
-       [New Resellers] = COUNT(DISTINCT i.ResellerKey)
+SELECT DISTINCT CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date) AS [Order Month],
+       [New Resellers] = COALESCE([New Resellers], 0),
+       [Active Resellers]
   FROM FactResellerSales AS s
-       LEFT OUTER JOIN initial_order_dates AS i
-       ON DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0) =
-       DATEADD(MONTH, DATEDIFF(MONTH, 0, [Initial Order Date]),0)
+       LEFT OUTER JOIN new_resellers
+       ON DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) = [First Order Month]
+       LEFT OUTER JOIN active_resellers
+       ON DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) = [Active Order Month]
  WHERE s.OrderDate >= '2021-01-01'
- GROUP BY DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0)
  ORDER BY [Order Month] ASC
+
  ```
 | Order Month | New Resellers |
 |-------------|--------------:|
