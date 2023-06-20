@@ -175,7 +175,7 @@ AS (SELECT [Order Month],
 | 2022-12-01  |                       141 |                            1057 |          994 |         2192 |                       6.43% |
 
 ***
-Sales Manager: "Please create a monthly count of newly acquired reseller customers for 2021-2022"
+Sales Manager: "Please create a monthly count of newly acquired resellers along with active resellers (meaning they bought something that month)  for 2021-2022"
 
 ```SQL
 WITH
