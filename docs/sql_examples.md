@@ -75,8 +75,10 @@ SELECT 'Avg Profit per Customer',
 ```
 | Measure                 |   2020 |    2021 |     2022 |
 |-------------------------|-------:|--------:|---------:|
-| Avg Profit per Customer | 117.21 | 2284.04 | -1005.87 |
+| Avg Profit per Customer | 117.21 | 2284.04 | -1005.87 | 
 | Avg Profit per Order    |  38.06 |  717.23 |  -287.98 |
+
+$491,870 total loss for 2022
 
 ***
 
