@@ -252,7 +252,7 @@ SELECT DISTINCT CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date) AS
 
 ***
 
-Digital Marketing Manager: "Can you tell me which countries had an earlier minimum first purchase date for all online customers than the earliest first purchase date from the United Kingdom?"
+Digital Marketing Manager: "Can you tell me which countries had an earlier minimum first purchase date for all online customers than the earliest first purchase date for online customers from the United Kingdom?"
 
 ```SQL
 DECLARE @uk AS DATE
