@@ -251,3 +251,23 @@ SELECT DISTINCT CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date) AS
 | 2022-11-01  |             3 |              179 |
 
 ***
+
+Digital Marketing Manager: "Can you tell me which countries had an earlier minimum first purchase date for online customers than the earliest first purchase date from the United Kingdom?"
+
+```SQL
+DECLARE @uk AS DATE
+SET @uk = (SELECT MIN(DateFirstPurchase)
+             FROM DimCustomer AS c
+                  INNER JOIN DimGeography AS G
+                  ON c.GeographyKey = g.GeographyKey
+            WHERE EnglishCountryRegionName = 'United Kingdom')
+
+SELECT 'Country' = EnglishCountryRegionName,
+       'First Purchase Date' = MIN(DateFirstPurchase),
+       'UK First Purchase Date' = @uk 
+  FROM DimCustomer AS c
+       INNER JOIN DimGeography AS G
+       ON c.GeographyKey = g.GeographyKey
+ GROUP BY EnglishCountryRegionName
+HAVING MIN(DateFirstPurchase) < @uk
+```
