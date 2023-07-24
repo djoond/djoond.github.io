@@ -221,7 +221,7 @@ SELECT DISTINCT CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date) AS
        LEFT OUTER JOIN active_resellers
        ON DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) = [Active Order Month]
  WHERE s.OrderDate >= '2021-01-01'
- ORDER BY [Order Month] ASC
+ ORDER BY [Order Month] ASC;
 
  ```
 | Order Month | New Resellers | Active Resellers |
@@ -269,7 +269,7 @@ SELECT 'Country' = EnglishCountryRegionName,
        INNER JOIN DimGeography AS G
        ON c.GeographyKey = g.GeographyKey
  GROUP BY EnglishCountryRegionName
-HAVING MIN(DateFirstPurchase) < @uk
+HAVING MIN(DateFirstPurchase) < @uk;
 ```
 | Country       | First Purchase Date | UK First Purchase Date |
 |---------------|:-------------------:|:----------------------:|
@@ -277,5 +277,63 @@ HAVING MIN(DateFirstPurchase) < @uk
 | Canada        |      2019-12-29     |       2019-12-31       |
 | France        |      2019-12-29     |       2019-12-31       |
 | United States |      2019-12-29     |       2019-12-31       |
+
+***
+
+Sales Manager: "Please give me list of all the Resellers who have only placed a single order with us.
+This should include resellers whose single order date is at least 90 days prior to today's date (12/1/2022)"
+
+```SQL
+WITH
+first_order
+AS (SELECT r.ResellerKey,
+           [Order Date] = CAST(MIN(s.OrderDate) AS date),
+           [Orders] = COUNT(s.SalesOrderNumber),
+	   [Days Since Order] = DATEDIFF(d, MIN(s.OrderDate), '12/1/2022')
+      FROM DimReseller AS r
+           INNER JOIN FactResellerSales AS s
+	   ON r.ResellerKey = s.ResellerKey
+     GROUP BY r.ResellerKey
+    HAVING COUNT(s.SalesOrderNumber) < 2
+	   AND DATEDIFF(d, MIN(s.OrderDate), '12/1/2022') > 90
+  )
+
+
+SELECT r.ResellerKey,
+       [Reseller Name] = r.ResellerName,
+       f.[Order Date],
+       f.[Days Since Order]
+  FROM DimReseller AS r
+       INNER JOIN first_order AS f
+       ON r.ResellerKey = f.ResellerKey
+ ORDER BY f.[Order Date] ASC;
+```
+| ResellerKey | Reseller Name                      | Order Date | Days Since Order |
+|-------------|------------------------------------|------------|-----------------:|
+| 215         | Eleventh Bike Store                | 2020-03-31 |              975 |
+| 74          | Parcel Express Delivery Service    | 2020-05-01 |              944 |
+| 129         | Discount Bicycle Specialists       | 2020-05-01 |              944 |
+| 456         | Riding Excursions                  | 2020-07-01 |              883 |
+| 314         | One-Piece Handle Bars              | 2020-11-29 |              732 |
+| 524         | Chain and Chain Tool Distributions | 2021-01-29 |              671 |
+| 474         | Retail Cycle Shop                  | 2021-02-28 |              641 |
+| 626         | Retail Sporting Goods              | 2021-03-30 |              611 |
+| 434         | Road-Way Mart                      | 2021-03-30 |              611 |
+| 516         | Seats and Saddles Company          | 2021-04-30 |              580 |
+| 350         | Mountain Emporium                  | 2021-04-30 |              580 |
+| 46          | Gear-Shift Bikes Limited           | 2021-05-30 |              550 |
+| 219         | Extras Sporting Goods              | 2021-08-28 |              460 |
+| 564         | Imported and Domestic Cycles       | 2021-10-28 |              399 |
+| 243         | Recreation Supplies                | 2021-11-28 |              368 |
+| 590         | Lustrous Paints and Components     | 2021-12-28 |              338 |
+| 185         | Weekend Bike Tours                 | 2021-12-28 |              338 |
+| 617         | Tubeless Tire Company              | 2022-01-28 |              307 |
+| 339         | Major Bicycle Store                | 2022-01-28 |              307 |
+| 521         | Mobile Outlet                      | 2022-01-28 |              307 |
+| 50          | Hometown Riding Supplies           | 2022-03-30 |              246 |
+| 153         | Widget Bicycle Specialists         | 2022-03-30 |              246 |
+| 459         | Parts Shop                         | 2022-03-30 |              246 |
+| 467         | The Cycle Store                    | 2022-05-30 |              185 |
+| 699         | Sensational Discount Store         | 2022-08-29 |               94 |
 
 ***
