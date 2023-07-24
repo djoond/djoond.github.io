@@ -145,10 +145,10 @@ AS (SELECT [Order Month],
    )
 
  SELECT DISTINCT [Order Month] = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0) AS date), 
-        [Bike Category Only Orders] = b.[Order Count],
-        [Non-bike Categories Only Orders] = nb.[Order Count],
-        [Mixed Orders] = m.[Order Count],
-	[Total Orders] = b.[Order Count] + nb.[Order Count] + m.[Order Count],
+        [Bike Category Only Orders] = FORMAT(b.[Order Count], '#,###'),
+        [Non-bike Categories Only Orders] = FORMAT(nb.[Order Count], '#,###'),
+        [Mixed Orders] = FORMAT(m.[Order Count], '#,###'),
+        [Total Orders] = FORMAT((b.[Order Count] + nb.[Order Count] + m.[Order Count]), '#,###'),
 	[Percent of Bike-Only Orders] =  FORMAT(CAST(b.[Order Count] AS float) /
 	                                 (b.[Order Count] + nb.[Order Count] + m.[Order Count]), 'P')
    FROM FactInternetSales AS s
@@ -164,18 +164,17 @@ AS (SELECT [Order Month],
 | Order Month | Bike Category Only Orders | Non-bike Categories Only Orders | Mixed Orders | Total Orders | Percent of Bike-Only Orders |
 |-------------|--------------------------:|--------------------------------:|-------------:|-------------:|----------------------------:|
 | 2022-01-01  |                        65 |                             135 |          432 |          632 |                      10.28% |
-| 2022-02-01  |                        53 |                             967 |          401 |         1421 |                       3.73% |
-| 2022-03-01  |                        83 |                            1082 |          525 |         1690 |                       4.91% |
-| 2022-04-01  |                        68 |                            1008 |          536 |         1612 |                       4.22% |
-| 2022-05-01  |                       100 |                            1043 |          649 |         1792 |                       5.58% |
-| 2022-06-01  |                       136 |                            1003 |          868 |         2007 |                       6.78% |
-| 2022-07-01  |                        99 |                            1078 |          698 |         1875 |                       5.28% |
-| 2022-08-01  |                        97 |                            1069 |          800 |         1966 |                       4.93% |
-| 2022-09-01  |                       103 |                            1014 |          767 |         1884 |                       5.47% |
-| 2022-10-01  |                       133 |                            1115 |          883 |         2131 |                       6.24% |
-| 2022-11-01  |                       127 |                            1012 |          948 |         2087 |                       6.09% |
-| 2022-12-01  |                       141 |                            1057 |          994 |         2192 |                       6.43% |
-
+| 2022-02-01  |                        53 |                             967 |          401 |        1,421 |                       3.73% |
+| 2022-03-01  |                        83 |                           1,082 |          525 |        1,690 |                       4.91% |
+| 2022-04-01  |                        68 |                           1,008 |          536 |        1,612 |                       4.22% |
+| 2022-05-01  |                       100 |                           1,043 |          649 |        1,792 |                       5.58% |
+| 2022-06-01  |                       136 |                           1,003 |          868 |        2,007 |                       6.78% |
+| 2022-07-01  |                        99 |                           1,078 |          698 |        1,875 |                       5.28% |
+| 2022-08-01  |                        97 |                           1,069 |          800 |        1,966 |                       4.93% |
+| 2022-09-01  |                       103 |                           1,014 |          767 |        1,884 |                       5.47% |
+| 2022-10-01  |                       133 |                           1,115 |          883 |        2,131 |                       6.24% |
+| 2022-11-01  |                       127 |                           1,012 |          948 |        2,087 |                       6.09% |
+| 2022-12-01  |                       141 |                           1,057 |          994 |        2,192 |                       6.43% |
 ***
 Sales Manager: "Please create a monthly count of newly acquired resellers along with active resellers (meaning they bought something that month)  for 2021-2022"
 
