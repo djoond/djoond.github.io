@@ -337,3 +337,65 @@ SELECT r.ResellerKey,
 | 699         | Sensational Discount Store         | 2022-08-29 |               94 |
 
 ***
+
+Sales Manager: "For each month in 2022, can you create a report that shows the monthly total reseller sales, the sales for the top-ten resellers, and the top-ten's percent of the total months sales?"
+
+
+```SQL
+WITH
+reseller_monthly_sales
+AS (SELECT 'Order Month' = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date),
+           ResellerKey,
+           Sales = SUM(ExtendedAmount)
+      FROM FactResellerSales
+     WHERE YEAR(OrderDate) = 2022
+     GROUP BY CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, OrderDate),0) AS date), ResellerKey
+   ),
+
+reseller_top_ten
+AS (SELECT [Order Month],
+           ResellerKey,
+           Sales,
+           Ranking = RANK() OVER(PARTITION BY [Order Month] ORDER BY Sales DESC)
+      FROM reseller_monthly_sales
+   ),
+
+monthly_top_ten_sales
+AS (SELECT [Order Month],
+           [Top Ten Monthly Sales] = SUM(Sales)
+      FROM reseller_top_ten
+     WHERE Ranking < 11
+     GROUP BY [Order Month]
+   ),
+
+monthly_total_sales
+AS (SELECT 'Order Month' = CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0) AS date),
+           [Monthly Sales] = SUM(s.ExtendedAmount)
+      FROM FactResellerSales AS s
+     WHERE YEAR(OrderDate) = 2022
+     GROUP BY CAST(DATEADD(MONTH, DATEDIFF(MONTH, 0, s.OrderDate),0) AS date)
+   )
+
+SELECT m.[Order Month],
+       [Monthly Sales] = FORMAT([Monthly Sales], '$#,###'),
+       [Top Ten Monthly Sales] = FORMAT([Top Ten Monthly Sales], '$#,###'),
+       [Top Ten Percent] = FORMAT([Top Ten Monthly Sales] / [Monthly Sales], 'P')
+  FROM monthly_total_sales AS m
+       INNER JOIN monthly_top_ten_sales AS t
+       ON m.[Order Month] = t.[Order Month]
+```
+| Order Month | Monthly Sales | Top Ten Monthly Sales | Top Ten Percent |
+|-------------|--------------:|----------------------:|----------------:|
+| 2022-01-01  |    $4,306,585 |            $1,108,010 |          25.72% |
+| 2022-02-01  |    $4,153,433 |              $999,332 |          24.06% |
+| 2022-03-01  |    $2,293,219 |              $820,598 |          35.78% |
+| 2022-04-01  |    $3,490,465 |              $927,812 |          26.58% |
+| 2022-05-01  |    $3,516,997 |              $772,790 |          21.97% |
+| 2022-06-01  |    $1,664,201 |              $607,382 |          36.49% |
+| 2022-07-01  |    $2,701,971 |              $765,730 |          28.33% |
+| 2022-08-01  |    $2,741,200 |              $608,337 |          22.19% |
+| 2022-09-01  |    $2,214,109 |              $797,972 |          36.04% |
+| 2022-10-01  |    $3,328,632 |              $889,783 |          26.73% |
+| 2022-11-01  |    $3,429,174 |              $790,623 |          23.05% |
+
+***
