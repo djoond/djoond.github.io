@@ -288,7 +288,7 @@ first_order
 AS (SELECT r.ResellerKey,
            [Order Date] = CAST(MIN(s.OrderDate) AS date),
            [Orders] = COUNT(s.SalesOrderNumber),
-	   [Days Since Order] = DATEDIFF(d, MIN(s.OrderDate), '12/1/2022')
+	   [Days Since Order] = FORMAT(CAST(DATEDIFF(d, MIN(s.OrderDate), '12/1/2022') AS int), '#,###')
       FROM DimReseller AS r
            INNER JOIN FactResellerSales AS s
 	   ON r.ResellerKey = s.ResellerKey
